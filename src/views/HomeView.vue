@@ -2,6 +2,24 @@
   <div class="home">
     <div class="home__menu">
       <h2>Dashboard <span>v.1</span></h2>
+      <div>
+        <div class="option">
+          <p>Income</p>
+          <span>></span>
+        </div>
+        <div class="option dash">
+          <p>Dashboard</p>
+          <span>></span>
+        </div>
+        <div class="option">
+          <p>Promote</p>
+          <span>></span>
+        </div>
+        <div class="option">
+          <p>Help</p>
+          <span>></span>
+        </div>
+      </div>
     </div>
     <div class="home__dashboard">
       <h1>Hello , Evano 👋</h1>
@@ -26,17 +44,19 @@
             <span>Status</span>
           </div>
           <hr />
-          <PersonComponent
-            v-for="(personData, index) in personDataList"
-            :key="index"
-            :name="personData.name"
-            :email="personData.email"
-            :phone="personData.phone"
-            :company="personData.company"
-            :country="personData.country"
-            :color="personData.color"
-            :status="personData.status"
-          />
+          <div>
+            <div v-for="(person, index) in personDataList" :key="index">
+              <PersonComponent
+                :name="person.name"
+                :email="person.email"
+                :phone="person.phone"
+                :company="person.company"
+                :country="person.country"
+                :color="person.color"
+                :status="person.status"
+              />
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -46,15 +66,32 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import PersonComponent from '@/components/PersonComponent.vue'
-import StatusComponent from '@/components/StatusComponent.vue'
+import MenuOption from '@/components/MenuOption.vue'
 
 @Component({
   components: {
     PersonComponent,
-    StatusComponent,
+    MenuOption,
   },
 })
 export default class HomeView extends Vue {
+  menuOptions = [
+    {
+      text: 'Dashboard',
+    },
+    {
+      text: 'Income',
+    },
+    {
+      text: 'Product',
+    },
+    {
+      text: 'Promote',
+    },
+    {
+      text: 'Help',
+    },
+  ]
   personDataList = [
     {
       name: 'John Doe',
@@ -78,7 +115,7 @@ export default class HomeView extends Vue {
       name: 'Alice Johnson',
       email: 'alice@example.com',
       phone: '456123789',
-      company: 'Global Enterprises',
+      company: 'Global',
       country: 'UK',
       color: 'green',
       status: 'Pending',
@@ -87,16 +124,16 @@ export default class HomeView extends Vue {
       name: 'Michael Brown',
       email: 'michael@example.com',
       phone: '321654987',
-      company: 'Innovate Co.',
+      company: 'Innovate.',
       country: 'Australia',
-      color: 'green',
+      color: 'red',
       status: 'Completed',
     },
     {
       name: 'Emily Wilson',
       email: 'emily@example.com',
       phone: '789654123',
-      company: 'Creative Solutions',
+      company: 'Creative',
       country: 'Germany',
       color: 'green',
       status: 'Processing',
@@ -105,13 +142,14 @@ export default class HomeView extends Vue {
       name: 'Daniel Lee',
       email: 'daniel@example.com',
       phone: '159357468',
-      company: 'Tech Innovations',
+      company: 'Innovations',
       country: 'France',
       color: 'green',
       status: 'Blocked',
     },
   ]
 }
+console
 </script>
 
 <style scoped lang="scss">
@@ -124,7 +162,22 @@ export default class HomeView extends Vue {
     width: 25%;
     height: 100%;
     text-align: left;
-    padding: 24px;
+    padding: 32px;
+
+    .dash {
+      background-color: #5932ea;
+      color: white;
+    }
+    .option {
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      justify-content: space-between;
+      span {
+        font-size: 20px;
+      }
+    }
+
     span {
       font-size: 10px;
       color: grey;
@@ -179,7 +232,10 @@ export default class HomeView extends Vue {
           padding: 6px;
           display: flex;
           flex-direction: row;
-          justify-content: space-around;
+          text-align: center;
+          span {
+            flex: 1;
+          }
         }
         span {
           color: grey;
